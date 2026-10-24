@@ -1,0 +1,5 @@
+# Backup and temp files
+Quiz-upgraded.zip
+Quiz-upgraded/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin & Monitoring Dashboard: Transition Words Quiz</title>
+
+  <!-- Modern Fonts & Styles -->
+  <!-- Prevent Aggressive Browser Caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <!-- Local App Modules -->
+  <script src="firebase-config.js"></script>
+  <script src="assets/audio.js"></script>
+  <script src="assets/realtime.js"></script>
+</head>
+<body>
+  <div class="container-wide">
+
+    <!-- Top Admin Header -->
+    <header class="top-navbar">
+      <div class="brand-wrapper">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">Host Dashboard & Live Monitoring</h1>
+          <div class="brand-subtitle">Presenter Team: Elsa • Sofia • Irfan • Ahmad</div>
+        </div>
+      </div>
+
+      <!-- Integrated Header Chill Music Player -->
+      <div class="header-music-player">
+        <button class="music-toggle-btn" onclick="toggleBgm()" id="adminMusicPlayBtn" title="Play/Pause Chill Music">
+          ▶
+        </button>
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="music-track-label" id="adminMusicTrackName">☕ Chill Lo-Fi</span>
+            <div class="soundwave" id="adminSoundwaveAnim">
+              <div class="soundwave-bar"></div>
+              <div class="soundwave-bar"></div>
+              <div class="soundwave-bar"></div>
+              <div class="soundwave-bar"></div>
+            </div>
+          </div>
+        </div>
+        <select class="form-control" id="adminTrackSelect" onchange="changeTrack()" style="padding:4px 8px; font-size:0.75rem; width:auto; height:28px; background:rgba(255,255,255,0.08); border-radius:var(--radius-sm);">
+          <option value="lofi">☕ Lo-Fi</option>
+          <option value="ambient">🌌 Ambient</option>
+        </select>
+        <input type="range" class="music-vol-slider" min="0" max="1" step="0.05" value="0.25" oninput="changeVolume(this.value)" title="Music Volume" />
+        <button class="btn btn-secondary btn-sm" style="padding:4px 8px; font-size:0.8rem;" onclick="AudioManager.toggleMute()" id="muteBtn" title="Mute/Unmute Audio">🔊</button>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <a href="https://canva.link/otop855dny25lu6" target="_blank" class="btn btn-secondary btn-sm" title="Open Canva Slide Deck">
+          🎨 Canva Slide
+        </a>
+        <button class="btn btn-secondary btn-sm" onclick="openQrModal()">
+          📱 QR Code
+        </button>
+        <span class="badge badge-room" id="adminRoomBadge">Room: ...</span>
+        <span class="badge badge-live" id="adminStatusBadge">
+          <span class="pulse-dot" id="adminStatusDot"></span>
+          <span id="adminStatusText">Live Sync</span>
+        </span>
+        <span class="badge badge-room" id="onlineBadge" title="Online participants count">
+          👥 <span id="onlineCount">0</span> Online
+        </span>
+      </div>
+    </header>
+
+    <!-- Stat Summary Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">📥</div>
+        <div>
+          <div class="stat-value" id="statTotalSubmissions">0</div>
+          <div class="stat-label">Total Submissions</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(14, 165, 233, 0.15); color: #38bdf8;">🎯</div>
+        <div>
+          <div class="stat-value" id="statAvgPgScore">0%</div>
+          <div class="stat-label">Average MC Score</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(236, 72, 153, 0.15); color: #f472b6;">📝</div>
+        <div>
+          <div class="stat-value" id="statTotalEssay">0 / 4</div>
+          <div class="stat-label">Essays Collected (Target: 4)</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">💬</div>
+        <div>
+          <div class="stat-value" id="statTotalTanya">0 / 5</div>
+          <div class="stat-label">Q&A Inquiries (Target: 5)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchAdminTab('feed')" id="tabBtnFeed">
+        <svg viewBox="0 0 24 24">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+        </svg>
+        <span>Live Feed (<span id="feedCount">0</span>)</span>
+      </button>
+      <button class="tab-btn" onclick="switchAdminTab('wheel')" id="tabBtnWheel">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="m4.93 4.93 4.24 4.24"></path>
+          <path d="m14.83 9.17 4.24-4.24"></path>
+          <path d="m14.83 14.83 4.24 4.24"></path>
+          <path d="m9.17 14.83-4.24 4.24"></path>
+        </svg>
+        <span>Wheel of Names (19 Students)</span>
+      </button>
+      <button class="tab-btn" onclick="switchAdminTab('matrix')" id="tabBtnMatrix">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        <span>19 Students Matrix & Answer Keys</span>
+      </button>
+      <button class="tab-btn" onclick="switchAdminTab('projector')" id="tabBtnProjector">
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        <span>Projector Screen Mode</span>
+      </button>
+      <button class="tab-btn" onclick="switchAdminTab('settings')" id="tabBtnSettings">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Connection & Database</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: Live Feed Submissions -->
+    <div id="adminTabFeed" class="admin-pane">
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px; flex-wrap:wrap; gap: 10px;">
+          <div>
+            <h2 style="font-family: var(--font-heading); font-size: 1.2rem;">⚡ Realtime Submissions Stream</h2>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">
+              Data updates dynamically when participants submit answers via mobile devices or laptops.
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary btn-sm" onclick="exportToCsv()">📥 Export CSV</button>
+            <button class="btn btn-secondary btn-sm" onclick="printReport()">🖨️ Print Summary</button>
+            <button class="btn btn-danger btn-sm" onclick="confirmClearData()">🗑️ Reset Data</button>
+          </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div style="display:flex; gap:8px; margin-bottom: 14px; overflow-x: auto;">
+          <button class="btn btn-sm btn-secondary filter-btn active" onclick="filterFeed('all', this)">All (<span id="countAll">0</span>)</button>
+          <button class="btn btn-sm btn-secondary filter-btn" onclick="filterFeed('pilihan_ganda', this)">🎯 Multiple Choice (<span id="countPg">0</span>)</button>
+          <button class="btn btn-sm btn-secondary filter-btn" onclick="filterFeed('essay', this)">📝 Essay Analysis (<span id="countEssay">0</span>)</button>
+          <button class="btn btn-sm btn-secondary filter-btn" onclick="filterFeed('tanya_bebas', this)">💬 Q&A Inquiries (<span id="countTanya">0</span>)</button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 80px;">Time</th>
+                <th style="width: 140px;">NIP</th>
+                <th>Student Name</th>
+                <th>Category</th>
+                <th>Result / Score</th>
+                <th style="width: 120px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="feedTableBody">
+              <tr>
+                <td colspan="6" style="text-align:center; padding: 40px; color: var(--text-dim);">
+                  Awaiting first incoming submission from participants...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Wheel of Names (Randomizer) -->
+    <div id="adminTabWheel" class="admin-pane" style="display: none;">
+      <div class="glass-card">
+        <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: center;">
+          
+          <!-- Wheel Canvas -->
+          <div class="wheel-container">
+            <div class="wheel-wrapper">
+              <div class="wheel-pointer"></div>
+              <canvas id="wheelCanvas" width="340" height="340"></canvas>
+            </div>
+            <div style="margin-top: 16px; display:flex; gap: 10px;">
+              <button class="btn btn-primary btn-lg" id="btnSpin" onclick="spinTheWheel()">
+                🎡 SPIN THE WHEEL!
+              </button>
+              <button class="btn btn-secondary" onclick="populate19Students()">
+                Reset 19 Students
+              </button>
+            </div>
+          </div>
+
+          <!-- Controls & Config -->
+          <div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 8px;">
+              🎯 Student & Question Randomizer
+            </h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">
+              Spin the interactive wheel during presentations to assign students fairly to Essay, Multiple Choice, or Q&A roles!
+            </p>
+
+            <div class="form-group">
+              <label class="form-label">Target Quiz Session:</label>
+              <select id="wheelTargetType" class="form-control" onchange="onWheelTargetChange()">
+                <option value="essay">📝 Quiz #1: Essay Cases (4 Students: Elsa, Sofia, Irfan, Ahmad)</option>
+                <option value="pg">🎯 Quiz #2: Multiple Choice Questions (Interactive Game Show)</option>
+                <option value="tanya">💬 Q&A Discussion (5 Students: Inquirers 1 to 5)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Names / NIPs on Wheel (1 per line):</label>
+              <textarea id="wheelNamesInput" class="form-control" rows="8" oninput="updateWheelFromInput()"></textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: 19 Students Matrix & Answer Keys -->
+    <div id="adminTabMatrix" class="admin-pane" style="display: none;">
+      <div class="glass-card">
+        <h3 style="font-family: var(--font-heading); margin-bottom: 14px;">📋 19 Students Allocation & Evaluation Rubric</h3>
+        
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">Slot</th>
+                <th style="width: 180px;">Session / Quiz</th>
+                <th>Topic & Examiner Presenter</th>
+                <th>Answer Key / Evaluation Rubric</th>
+                <th style="width: 140px;">Status / Grade</th>
+              </tr>
+            </thead>
+            <tbody id="matrixTableBody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: Projector Screen Mode -->
+    <div id="adminTabProjector" class="admin-pane" style="display: none;">
+      <div class="glass-card" style="text-align: center; padding: 40px 20px;">
+        <span class="badge badge-live" style="font-size: 0.85rem; padding: 6px 16px; margin-bottom: 16px;">
+          Classroom Projector Screen
+        </span>
+        <h1 style="font-family: var(--font-heading); font-size: 2.2rem; margin-bottom: 8px;">
+          Transition Words & Connectors
+        </h1>
+        <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 24px;">
+          Please scan the QR code or navigate to the link below using your mobile device or laptop:
+        </p>
+
+        <!-- Big QR Code Container -->
+        <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+          <div id="projectorQrCode" style="background: white; padding: 16px; border-radius: 16px; box-shadow: var(--shadow-glow);"></div>
+        </div>
+
+        <div style="font-size: 1.25rem; font-weight: 700; color: #a5b4fc; margin-bottom: 12px;" id="projectorUrlText">
+          https://...
+        </div>
+
+        <div style="display: inline-flex; align-items: center; gap: 12px; background: rgba(15, 23, 42, 0.8); padding: 10px 24px; border-radius: var(--radius-full); border: 1px solid var(--border-glow); flex-wrap:wrap; justify-content:center;">
+          <span>Room Code: <strong style="color: #67e8f9;" id="projectorRoomText">...</strong></span>
+          <span>•</span>
+          <span>Connected Participants: <strong style="color: #34d399;" id="projectorCountText">0</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: Connection & Database Settings -->
+    <div id="adminTabSettings" class="admin-pane" style="display: none;">
+      <div class="glass-card">
+        <h3 style="font-family: var(--font-heading); margin-bottom: 16px;">⚙️ Room Configuration & Realtime Sync</h3>
+        
+        <div class="form-group">
+          <label class="form-label">Current Room Code:</label>
+          <div style="display: flex; gap: 10px;">
+            <input type="text" id="settingRoomInput" class="form-control" />
+            <button class="btn btn-primary" onclick="changeRoomCode()">Save Room</button>
+          </div>
+          <small style="color: var(--text-muted); display: block; margin-top: 6px;">
+            Participants must connect with the identical room code to transmit responses to this dashboard.
+          </small>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 24px 0;" />
+
+        <h4 style="font-family: var(--font-heading); margin-bottom: 12px;">🔥 Firebase Realtime Database Configuration (Optional)</h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+          The system operates automatically out-of-the-box via <strong>Instant Cloud Sync (MQTT over WebSocket TLS)</strong>.
+          If you wish to store permanent archives in your personal Firebase project, supply credentials below:
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">Firebase Database URL:</label>
+          <input type="text" id="fbDbUrlInput" class="form-control" placeholder="https://PROJECT-NAME-default-rtdb.firebaseio.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Firebase API Key:</label>
+          <input type="text" id="fbApiKeyInput" class="form-control" placeholder="AIzaSy..." />
+        </div>
+
+        <button class="btn btn-success" onclick="saveCustomFirebase()">💾 Save Firebase Credentials</button>
+        <button class="btn btn-secondary" onclick="resetCustomFirebase()" style="margin-left: 8px;">Reset to Default</button>
+      </div>
+    </div>
+
+    <!-- Detail Submission Modal -->
+    <div class="modal-overlay" id="detailModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="detailModalTitle">Participant Submission Details</h3>
+          <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+        </div>
+        <div id="detailModalBody" style="font-size: 0.92rem; line-height: 1.6;">
+          <!-- Detail content loaded here -->
+        </div>
+        <div style="margin-top: 20px; text-align: right;">
+          <button class="btn btn-primary" onclick="closeDetailModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="modal-overlay" id="qrModal">
+      <div class="modal-content" style="max-width: 440px; text-align: center;">
+        <div class="modal-header">
+          <h3 class="modal-title">📱 Scan to Access Quiz</h3>
+          <button class="modal-close" onclick="closeQrModal()">&times;</button>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
+          Ask participants in class to point their smartphone cameras at this QR code:
+        </p>
+        <div style="display:flex; justify-content:center; margin-bottom: 16px;">
+          <div id="modalQrCode" style="background: white; padding: 14px; border-radius: 12px;"></div>
+        </div>
+        <div class="passage-box" style="font-size: 0.85rem; word-break: break-all;" id="modalQrUrlText">
+          ...
+        </div>
+        <div style="margin-top: 16px;">
+          <button class="btn btn-primary btn-block" onclick="copyPlayerLink()">📋 Copy Quiz Link</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Winner Announcement Modal (Wheel of Names) -->
+    <div class="modal-overlay" id="winnerModal">
+      <div class="modal-content" style="max-width: 460px; text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🎉</div>
+        <h2 style="font-family: var(--font-heading); color: #38bdf8; margin-bottom: 6px;" id="winnerName">
+          Selected Participant!
+        </h2>
+        <div class="badge badge-live" style="margin-bottom: 16px;" id="winnerBadge">Turn Assigned</div>
+        <div id="winnerTaskDetails" class="passage-box" style="text-align: left; margin-bottom: 20px;">
+          <!-- Task details -->
+        </div>
+        <button class="btn btn-primary btn-block" onclick="closeWinnerModal()">
+          Proceed with Quiz
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let questionsData = null;
+    let allSubmissions = [];
+    let currentFilter = 'all';
+
+    // Default 19 Students for Wheel
+    let wheelParticipants = [
+      "Student 1 (Essay 1)", "Student 2 (Essay 2)", "Student 3 (Essay 3)", "Student 4 (Essay 4)",
+      "Student 5 (MC 1)", "Student 6 (MC 2)", "Student 7 (MC 3)", "Student 8 (MC 4)", "Student 9 (MC 5)",
+      "Student 10 (MC 6)", "Student 11 (MC 7)", "Student 12 (MC 8)", "Student 13 (MC 9)", "Student 14 (MC 10)",
+      "Student 15 (Q&A 1)", "Student 16 (Q&A 2)", "Student 17 (Q&A 3)", "Student 18 (Q&A 4)", "Student 19 (Q&A 5)"
+    ];
+
+    // Canvas Wheel State
+    let wheelAngle = 0;
+    let isSpinning = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initialize Realtime Engine as Host
+      RealtimeSync.init({
+        role: 'host',
+        onSubmission: (newSub) => {
+          AudioManager.chime();
+          loadFeedData();
+          triggerMiniConfetti();
+        },
+        onPresence: (count, participants) => {
+          document.getElementById('onlineCount').innerText = count;
+          const projCount = document.getElementById('projectorCountText');
+          if (projCount) projCount.innerText = count;
+        },
+        onStatusChange: (connected, msg) => {
+          const statusText = document.getElementById('adminStatusText');
+          const statusDot = document.getElementById('adminStatusDot');
+          if (statusText) statusText.innerText = connected ? "Live Sync" : "Local";
+          if (statusDot) statusDot.className = connected ? "pulse-dot" : "pulse-dot offline";
+        }
+      });
+
+      const currentRoom = RealtimeSync.getRoomId();
+      document.getElementById('adminRoomBadge').innerText = `Room: ${currentRoom}`;
+      document.getElementById('settingRoomInput').value = currentRoom;
+      document.getElementById('projectorRoomText').innerText = currentRoom;
+
+      // 2. Load questions.json with anti-cache timestamp
+      fetch('questions.json?v=' + Date.now())
+        .then(res => res.json())
+        .then(data => {
+          questionsData = data;
+          renderMatrixTable();
+          loadFeedData();
+        })
+        .catch(err => {
+          console.error("Failed to load questions.json", err);
+          loadFeedData();
+        });
+
+      // 3. Init Wheel
+      initWheel();
+      populateWheelInput();
+
+      // 4. Init QR Codes
+      generateQrCodes();
+    });
+
+    // Navigation Admin Tabs
+    function switchAdminTab(tab) {
+      AudioManager.click();
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.admin-pane').forEach(p => p.style.display = 'none');
+
+      if (tab === 'feed') {
+        document.getElementById('tabBtnFeed').classList.add('active');
+        document.getElementById('adminTabFeed').style.display = 'block';
+        loadFeedData();
+      } else if (tab === 'wheel') {
+        document.getElementById('tabBtnWheel').classList.add('active');
+        document.getElementById('adminTabWheel').style.display = 'block';
+        drawWheel();
+      } else if (tab === 'matrix') {
+        document.getElementById('tabBtnMatrix').classList.add('active');
+        document.getElementById('adminTabMatrix').style.display = 'block';
+      } else if (tab === 'projector') {
+        document.getElementById('tabBtnProjector').classList.add('active');
+        document.getElementById('adminTabProjector').style.display = 'block';
+      } else if (tab === 'settings') {
+        document.getElementById('tabBtnSettings').classList.add('active');
+        document.getElementById('adminTabSettings').style.display = 'block';
+      }
+    }
+
+    // Load & Render Feed Submissions
+    function loadFeedData() {
+      allSubmissions = RealtimeSync.getAllSubmissions();
+      
+      document.getElementById('feedCount').innerText = allSubmissions.length;
+      document.getElementById('statTotalSubmissions').innerText = allSubmissions.length;
+
+      let totalPgScore = 0;
+      let pgCount = 0;
+      let essayCount = 0;
+      let tanyaCount = 0;
+
+      allSubmissions.forEach(sub => {
+        if (sub.type === 'pilihan_ganda') {
+          totalPgScore += (sub.score || 0);
+          pgCount++;
+        } else if (sub.type === 'essay') {
+          essayCount++;
+        } else if (sub.type === 'tanya_bebas') {
+          tanyaCount++;
+        }
+      });
+
+      const avgScore = pgCount > 0 ? Math.round(totalPgScore / pgCount) : 0;
+      document.getElementById('statAvgPgScore').innerText = `${avgScore}%`;
+      document.getElementById('statTotalEssay').innerText = `${essayCount} / 4`;
+      document.getElementById('statTotalTanya').innerText = `${tanyaCount} / 5`;
+
+      document.getElementById('countAll').innerText = allSubmissions.length;
+      document.getElementById('countPg').innerText = pgCount;
+      document.getElementById('countEssay').innerText = essayCount;
+      document.getElementById('countTanya').innerText = tanyaCount;
+
+      renderFeedTable();
+    }
+
+    function renderFeedTable() {
+      const tbody = document.getElementById('feedTableBody');
+      tbody.innerHTML = "";
+
+      let filtered = allSubmissions.slice().reverse();
+      if (currentFilter !== 'all') {
+        filtered = filtered.filter(item => item.type === currentFilter);
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align:center; padding: 36px; color: var(--text-dim);">
+              No submissions found in this category.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const tr = document.createElement('tr');
+        const timeStr = item.submittedAt ? new Date(item.submittedAt).toLocaleTimeString() : "-";
+        
+        let typeBadge = "";
+        let resultSummary = "";
+
+        if (item.type === 'pilihan_ganda') {
+          typeBadge = `<span class="badge badge-irfan">Multiple Choice</span>`;
+          const scoreClass = item.score >= 80 ? 'score-perfect' : (item.score >= 60 ? 'score-good' : 'score-avg');
+          resultSummary = `<span class="score-badge ${scoreClass}">${item.score} / 100</span> <small style="color:var(--text-muted); margin-left:6px;">(${item.correctCount || 0}/10 correct)</small>`;
+        } else if (item.type === 'essay') {
+          typeBadge = `<span class="badge badge-elsa">Essay Analysis</span>`;
+          const countAns = item.essayResponses ? Object.keys(item.essayResponses).length : 0;
+          resultSummary = `<span class="badge badge-room">${countAns} Cases Answered</span>`;
+        } else if (item.type === 'tanya_bebas') {
+          typeBadge = `<span class="badge badge-ahmad">Q&A Inquiry</span>`;
+          resultSummary = `<span style="font-size:0.85rem; color:#cbd5e1;">Target: <strong>${escapeHtml(item.targetPresenter || 'Presenter')}</strong></span>`;
+        }
+
+        const nipDisplay = item.nip || item.studentNumber || '-';
+
+        tr.innerHTML = `
+          <td style="color:var(--text-dim); font-size:0.8rem;">${timeStr}</td>
+          <td><strong style="color:#38bdf8;">${escapeHtml(nipDisplay)}</strong></td>
+          <td><strong style="color:#f8fafc;">${escapeHtml(item.name)}</strong></td>
+          <td>${typeBadge}</td>
+          <td>${resultSummary}</td>
+          <td>
+            <button class="btn btn-secondary btn-sm" onclick="viewDetail('${item.id}')">View Details</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterFeed(filter, btn) {
+      AudioManager.click();
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderFeedTable();
+    }
+
+    function viewDetail(id) {
+      const item = allSubmissions.find(s => s.id === id);
+      if (!item) return;
+
+      const body = document.getElementById('detailModalBody');
+      const nipDisplay = item.nip || item.studentNumber || '-';
+      document.getElementById('detailModalTitle').innerText = `Submission Details: ${item.name} (NIP: ${nipDisplay})`;
+
+      if (item.type === 'pilihan_ganda') {
+        let detailsHtml = `
+          <div style="background: rgba(15,23,42,0.8); padding:14px; border-radius:10px; margin-bottom:14px; border:1px solid var(--border-color);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:1.1rem; font-weight:700;">Score: <span style="color:#34d399;">${item.score}/100</span></span>
+              <span>Correct: ${item.correctCount || 0} of 10 Questions</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+        `;
+
+        if (item.reviewDetails && Array.isArray(item.reviewDetails)) {
+          item.reviewDetails.forEach((rd, i) => {
+            const mark = rd.isCorrect ? "✅" : "❌";
+            detailsHtml += `
+              <div style="background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border-left:3px solid ${rd.isCorrect ? '#10b981' : '#ef4444'};">
+                <div style="font-weight:600; font-size:0.88rem;">Question ${i+1} (${rd.category}): ${mark}</div>
+                <div style="font-size:0.83rem; color:var(--text-muted); margin-top:4px;">
+                  Participant Choice: <strong>${rd.studentChoice}</strong> | Correct Key: <strong>${rd.correct}</strong>
+                </div>
+                <div style="font-size:0.8rem; color:#94a3b8; margin-top:2px; font-style:italic;">
+                  ${rd.explanation || ''}
+                </div>
+              </div>
+            `;
+          });
+        }
+        detailsHtml += `</div>`;
+        body.innerHTML = detailsHtml;
+
+      } else if (item.type === 'essay') {
+        let essayHtml = `<div style="display:flex; flex-direction:column; gap:14px;">`;
+        if (item.essayResponses) {
+          Object.keys(item.essayResponses).forEach(key => {
+            const res = item.essayResponses[key];
+            essayHtml += `
+              <div class="question-item" style="margin-bottom:0;">
+                <div class="question-header">
+                  <span class="question-number">${key.toUpperCase()}</span>
+                  <span class="badge badge-elsa">${res.presenter} • ${res.topic}</span>
+                </div>
+                <div class="passage-box" style="margin-bottom:8px; font-style:normal; white-space:pre-wrap;">
+                  ${escapeHtml(res.answer || '(No response provided)')}
+                </div>
+              </div>
+            `;
+          });
+        }
+        essayHtml += `</div>`;
+        body.innerHTML = essayHtml;
+
+      } else if (item.type === 'tanya_bebas') {
+        body.innerHTML = `
+          <div class="passage-box" style="margin-bottom:12px;">
+            <strong style="color:#38bdf8;">Addressed Presenter:</strong> ${escapeHtml(item.targetPresenter || 'All Presenters')}
+          </div>
+          <div style="background:rgba(15,23,42,0.8); padding:16px; border-radius:10px; border:1px solid var(--border-color);">
+            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:6px;">Question Content:</div>
+            <p style="font-size:1.05rem; color:#f8fafc; font-style:italic;">"${escapeHtml(item.questionText)}"</p>
+          </div>
+        `;
+      }
+
+      document.getElementById('detailModal').classList.add('active');
+    }
+
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.remove('active');
+    }
+
+    // TAB 3: Render Matrix 19 Students
+    function renderMatrixTable() {
+      const tbody = document.getElementById('matrixTableBody');
+      if (!tbody || !questionsData) return;
+
+      tbody.innerHTML = "";
+
+      // 4 Essay slots
+      questionsData.essay.forEach((e, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>#${idx + 1}</strong></td>
+          <td><span class="badge badge-elsa">Quiz #1 - Essay ${idx + 1}</span></td>
+          <td>
+            <strong>${e.presenter}</strong>
+            <div style="font-size:0.8rem; color:var(--text-muted);">${e.topic}</div>
+          </td>
+          <td style="font-size:0.83rem; line-height:1.5;">
+            <ul style="padding-left:16px; margin:0;">
+              ${e.key_points.map(kp => `<li>${escapeHtml(kp)}</li>`).join('')}
+            </ul>
+          </td>
+          <td><input type="text" placeholder="Grade (0-100)" class="form-control" style="padding:6px; font-size:0.85rem;" /></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // MC slots
+      const mcStart = (questionsData.essay ? questionsData.essay.length : 0) + 1;
+      questionsData.pg.forEach((p, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>#${idx + mcStart}</strong></td>
+          <td><span class="badge badge-irfan">Quiz #2 - MC ${idx + 1}</span></td>
+          <td>
+            <strong>${p.presenter}</strong>
+            <div style="font-size:0.8rem; color:var(--text-muted);">${p.category}</div>
+          </td>
+          <td style="font-size:0.83rem;">
+            <div><strong>Key: ${p.correct}</strong></div>
+            <div style="color:var(--text-muted);">${escapeHtml(p.explanation)}</div>
+          </td>
+          <td><span class="badge badge-room">Auto-Graded</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Q&A slots
+      const qnaStart = (questionsData.essay ? questionsData.essay.length : 4) + (questionsData.pg ? questionsData.pg.length : 13) + 1;
+      questionsData.tanya_bebas.forEach((t, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>#${idx + qnaStart}</strong></td>
+          <td><span class="badge badge-ahmad">Q&A Inquiry #${idx + 1}</span></td>
+          <td>
+            <strong>${t.target_presenter}</strong>
+            <div style="font-size:0.8rem; color:var(--text-muted);">${t.topic}</div>
+          </td>
+          <td style="font-size:0.83rem;">
+            <div style="font-weight:600; color:#cbd5e1;">"${escapeHtml(t.prompt_question)}"</div>
+            <div style="color:var(--text-muted); font-size:0.8rem; margin-top:4px;">${escapeHtml(t.talking_points)}</div>
+          </td>
+          <td><input type="text" placeholder="Discussion Notes" class="form-control" style="padding:6px; font-size:0.85rem;" /></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // TAB 2: Wheel of Names
+    function initWheel() { drawWheel(); }
+
+    function populateWheelInput() {
+      document.getElementById('wheelNamesInput').value = wheelParticipants.join('\n');
+    }
+
+    function populate19Students() {
+      wheelParticipants = [
+        "Student 1 (Essay 1)", "Student 2 (Essay 2)", "Student 3 (Essay 3)", "Student 4 (Essay 4)",
+        "Student 5 (MC 1)", "Student 6 (MC 2)", "Student 7 (MC 3)", "Student 8 (MC 4)", "Student 9 (MC 5)",
+        "Student 10 (MC 6)", "Student 11 (MC 7)", "Student 12 (MC 8)", "Student 13 (MC 9)", "Student 14 (MC 10)",
+        "Student 15 (Q&A 1)", "Student 16 (Q&A 2)", "Student 17 (Q&A 3)", "Student 18 (Q&A 4)", "Student 19 (Q&A 5)"
+      ];
+      populateWheelInput();
+      drawWheel();
+    }
+
+    function updateWheelFromInput() {
+      const lines = document.getElementById('wheelNamesInput').value.split('\n')
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+      if (lines.length > 0) {
+        wheelParticipants = lines;
+        drawWheel();
+      }
+    }
+
+    function onWheelTargetChange() {
+      const val = document.getElementById('wheelTargetType').value;
+      if (val === 'essay') {
+        wheelParticipants = ["Student 1", "Student 2", "Student 3", "Student 4"];
+      } else if (val === 'pg') {
+        wheelParticipants = ["Student 5", "Student 6", "Student 7", "Student 8", "Student 9", "Student 10", "Student 11", "Student 12", "Student 13", "Student 14"];
+      } else if (val === 'tanya') {
+        wheelParticipants = ["Student 15", "Student 16", "Student 17", "Student 18", "Student 19"];
+      }
+      populateWheelInput();
+      drawWheel();
+    }
+
+    function drawWheel() {
+      const canvas = document.getElementById('wheelCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const width = canvas.width;
+      const height = canvas.height;
+      const center = width / 2;
+      const radius = center - 8;
+
+      ctx.clearRect(0, 0, width, height);
+
+      const numSlices = wheelParticipants.length;
+      if (numSlices === 0) return;
+
+      const sliceAngle = (2 * Math.PI) / numSlices;
+      const sliceColors = [
+        '#6366f1', '#ec4899', '#0ea5e9', '#10b981', '#f59e0b',
+        '#8b5cf6', '#06b6d4', '#f43f5e', '#3b82f6', '#14b8a6'
+      ];
+
+      for (let i = 0; i < numSlices; i++) {
+        const start = wheelAngle + i * sliceAngle;
+        const end = start + sliceAngle;
+
+        ctx.beginPath();
+        ctx.moveTo(center, center);
+        ctx.arc(center, center, radius, start, end);
+        ctx.closePath();
+
+        ctx.fillStyle = sliceColors[i % sliceColors.length];
+        ctx.fill();
+        ctx.strokeStyle = '#070a12';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.save();
+        ctx.translate(center, center);
+        ctx.rotate(start + sliceAngle / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 11px Outfit, sans-serif";
+        ctx.fillText(wheelParticipants[i], radius - 16, 4);
+        ctx.restore();
+      }
+
+      // Center Hub
+      ctx.beginPath();
+      ctx.arc(center, center, 24, 0, 2 * Math.PI);
+      ctx.fillStyle = '#0f172a';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    function spinTheWheel() {
+      if (isSpinning || wheelParticipants.length === 0) return;
+      isSpinning = true;
+      document.getElementById('btnSpin').disabled = true;
+
+      const spinDuration = 3500;
+      const startTime = performance.now();
+      const initialVelocity = 0.4 + Math.random() * 0.3;
+      let lastTickTime = 0;
+
+      function animateSpin(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / spinDuration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentSpeed = initialVelocity * (1 - easeOut);
+        
+        wheelAngle += currentSpeed;
+        drawWheel();
+
+        if (currentTime - lastTickTime > (50 + progress * 200)) {
+          AudioManager.spinTick();
+          lastTickTime = currentTime;
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(animateSpin);
+        } else {
+          isSpinning = false;
+          document.getElementById('btnSpin').disabled = false;
+          announceWinner();
+        }
+      }
+
+      requestAnimationFrame(animateSpin);
+    }
+
+    function announceWinner() {
+      const numSlices = wheelParticipants.length;
+      const sliceAngle = (2 * Math.PI) / numSlices;
+
+      let normalized = (3 * Math.PI / 2 - (wheelAngle % (2 * Math.PI))) % (2 * Math.PI);
+      if (normalized < 0) normalized += 2 * Math.PI;
+
+      const winningIndex = Math.floor(normalized / sliceAngle) % numSlices;
+      const winnerName = wheelParticipants[winningIndex];
+
+      AudioManager.success();
+      triggerMiniConfetti();
+
+      document.getElementById('winnerName').innerText = winnerName;
+      document.getElementById('winnerBadge').innerText = document.getElementById('wheelTargetType').selectedOptions[0].text;
+      
+      const targetType = document.getElementById('wheelTargetType').value;
+      let taskHtml = "";
+      if (targetType === 'essay') {
+        taskHtml = "<strong>Assigned Task:</strong> Answer 1 essay case study (Quiz #1).";
+      } else if (targetType === 'pg') {
+        taskHtml = "<strong>Assigned Task:</strong> Answer Multiple Choice question (Quiz #2) assigned slot.";
+      } else {
+        taskHtml = "<strong>Assigned Task:</strong> Pose a discussion inquiry in the Q&A Session.";
+      }
+      document.getElementById('winnerTaskDetails').innerHTML = taskHtml;
+
+      document.getElementById('winnerModal').classList.add('active');
+    }
+
+    function closeWinnerModal() {
+      document.getElementById('winnerModal').classList.remove('active');
+    }
+
+    // QR Codes
+    function generateQrCodes() {
+      const currentLoc = window.location.href.split('admin.html')[0];
+      const playerUrl = `${currentLoc}index.html?room=${encodeURIComponent(RealtimeSync.getRoomId())}`;
+
+      document.getElementById('projectorUrlText').innerText = playerUrl;
+      document.getElementById('modalQrUrlText').innerText = playerUrl;
+
+      const projContainer = document.getElementById('projectorQrCode');
+      projContainer.innerHTML = "";
+      new QRCode(projContainer, {
+        text: playerUrl,
+        width: 220,
+        height: 220,
+        colorDark: "#070a12",
+        colorLight: "#ffffff"
+      });
+
+      const modalContainer = document.getElementById('modalQrCode');
+      modalContainer.innerHTML = "";
+      new QRCode(modalContainer, {
+        text: playerUrl,
+        width: 180,
+        height: 180,
+        colorDark: "#070a12",
+        colorLight: "#ffffff"
+      });
+    }
+
+    function openQrModal() {
+      document.getElementById('qrModal').classList.add('active');
+    }
+
+    function closeQrModal() {
+      document.getElementById('qrModal').classList.remove('active');
+    }
+
+    function copyPlayerLink() {
+      const url = document.getElementById('modalQrUrlText').innerText;
+      navigator.clipboard.writeText(url).then(() => {
+        alert("Quiz link copied to clipboard!");
+      });
+    }
+
+    function changeRoomCode() {
+      const newRoom = document.getElementById('settingRoomInput').value.trim();
+      if (!newRoom) return alert("Room code cannot be empty!");
+      RealtimeSync.setRoomId(newRoom);
+    }
+
+    function saveCustomFirebase() {
+      const dbUrl = document.getElementById('fbDbUrlInput').value.trim();
+      const apiKey = document.getElementById('fbApiKeyInput').value.trim();
+      if (!dbUrl || !apiKey) return alert("Please provide both Firebase Database URL and API Key!");
+
+      const cfg = { apiKey: apiKey, databaseURL: dbUrl };
+      localStorage.setItem('custom_firebase_config', JSON.stringify(cfg));
+      alert("Firebase configuration saved! Reloading page...");
+      window.location.reload();
+    }
+
+    function resetCustomFirebase() {
+      localStorage.removeItem('custom_firebase_config');
+      alert("Firebase configuration reset to default. Reloading page...");
+      window.location.reload();
+    }
+
+    function confirmClearData() {
+      if (confirm("Are you sure you want to permanently clear ALL stored participant submissions?")) {
+        RealtimeSync.clearAllSubmissions();
+        loadFeedData();
+        alert("All submissions have been reset.");
+      }
+    }
+
+    // Export & Print
+    function exportToCsv() {
+      if (allSubmissions.length === 0) return alert("No submissions available to export!");
+      
+      let csv = "Time,NIP,Student Name,Quiz Type,Score,Answer Details\n";
+      allSubmissions.forEach(s => {
+        const time = s.submittedAt ? new Date(s.submittedAt).toLocaleTimeString() : "-";
+        const nip = s.nip || s.studentNumber || "-";
+        const name = `"${(s.name || '').replace(/"/g, '""')}"`;
+        const type = s.type;
+        const score = s.score !== undefined ? s.score : "-";
+        let ansDetail = "";
+        if (s.type === 'pilihan_ganda') {
+          ansDetail = JSON.stringify(s.answers || {}).replace(/"/g, '""');
+        } else if (s.type === 'essay') {
+          ansDetail = JSON.stringify(s.essayResponses || {}).replace(/"/g, '""');
+        } else {
+          ansDetail = `"${(s.questionText || '').replace(/"/g, '""')}"`;
+        }
+        csv += `${time},${nip},${name},${type},${score},"${ansDetail}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Transition_Words_Quiz_Submissions_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function printReport() {
+      window.print();
+    }
+
+    function triggerMiniConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 40,
+          spread: 60,
+          origin: { y: 0.7 }
+        });
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Chill BGM Event Listeners
+    AudioManager.onBgmStateChange((state) => {
+      const btn = document.getElementById('adminMusicPlayBtn');
+      const wave = document.getElementById('adminSoundwaveAnim');
+      const sub = document.getElementById('adminMusicStatusSubtitle');
+      const topStatus = document.getElementById('topMusicStatus');
+
+      if (state.isPlaying && !state.isMuted) {
+        if (btn) btn.innerHTML = "⏸";
+        if (wave) wave.classList.add('playing');
+        if (sub) sub.innerText = "Playing relaxing lo-fi chords...";
+        if (topStatus) { topStatus.innerText = "ON 🎶"; topStatus.style.color = "#34d399"; }
+      } else {
+        if (btn) btn.innerHTML = "▶";
+        if (wave) wave.classList.remove('playing');
+        if (sub) sub.innerText = "Click to play chill background chords";
+        if (topStatus) { topStatus.innerText = "OFF"; topStatus.style.color = "inherit"; }
+      }
+    });
+
+    function toggleBgm() { AudioManager.toggleBGM(); }
+    function toggleBgmQuick() { AudioManager.toggleBGM(); }
+    function changeVolume(val) { AudioManager.setBGMVolume(val); }
+    function changeTrack() {
+      const mode = document.getElementById('adminTrackSelect').value;
+      AudioManager.setBGMTrack(mode);
+      document.getElementById('adminMusicTrackName').innerText = mode === 'lofi' ? "☕ Cozy Lo-Fi Chords" : "🌌 Ambient Chill Pad";
+    }
+  </script>
+</body>
+</html>

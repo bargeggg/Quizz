@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kuis Transition Words & Connectors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#172033;--sub:#56627a;--paper:#f4f6fb;--card:#fff;--line:#d9dfea;--mark:#ffe066;--ok:#1b7f54;--okbg:#e6f5ed;--bad:#b83a34;--badbg:#fbeaea;--accent:#2b4acb;
+--ui:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--serif:"Source Serif 4",Georgia,serif}
+@media(prefers-color-scheme:dark){:root{--ink:#e8ecf5;--sub:#9aa6bf;--paper:#0f1524;--card:#18213a;--line:#2c3856;--mark:#7a6a12;--ok:#4fd19a;--okbg:#12342a;--bad:#ff8a84;--badbg:#3a1c20;--accent:#8ea2ff}}
+*{box-sizing:border-box}html{scroll-padding-top:80px}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.55 var(--ui);min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:12px clamp(14px,3vw,32px);flex-wrap:wrap}
+.top h1{font-size:1.05rem;font-weight:800;margin:0;flex:1 1 220px}
+.top h1 small{display:block;font-weight:600;color:var(--sub);font-size:.8rem}
+.stat{font-weight:700;font-size:.92rem;color:var(--sub)}.stat b{color:var(--ink)}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:9px 16px;font-weight:700;font-size:.92rem}
+.btn:hover:not(:disabled){border-color:var(--accent)}.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.sm{padding:6px 12px;font-size:.85rem}
+.bar{height:4px;background:var(--line)}.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.wrap{max-width:1120px;margin:0 auto;padding:clamp(14px,3vw,32px);display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start}
+nav.map{position:sticky;top:84px}
+nav.map h2{font-size:.85rem;margin:0 0 8px;color:var(--sub);font-weight:700}
+.grp{margin-bottom:14px}.grp div.nm{font-size:.82rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.grp .dot{width:10px;height:10px;border-radius:50%}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{width:36px;height:36px;border-radius:9px;border:1.5px solid var(--line);background:var(--card);font-weight:700;font-size:.9rem}
+.pill.cur{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.pill.ok{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.pill.bad{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+.pill.skip{border-style:dashed}
+main{min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(18px,3vw,32px)}
+.meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.88rem;color:var(--sub);font-weight:600;margin-bottom:18px}
+.tag{border-radius:99px;padding:3px 12px;font-weight:700;color:var(--ink);background:var(--paper);border:1px solid var(--line)}
+.tag i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.passage{font:400 clamp(1.3rem,2.4vw,1.75rem)/1.55 var(--serif);margin:0 0 18px;padding-left:18px;border-left:4px solid var(--line)}
+mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 3px}
+.blank{display:inline-block;min-width:5.5ch;border-bottom:2.5px solid var(--ink)}
+.ask{font-weight:700;font-size:1.1rem;margin:0 0 16px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:14px;align-items:flex-start;text-align:left;width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;font-size:1.05rem}
+.opt .L{flex:none;width:30px;height:30px;border-radius:8px;background:var(--paper);display:grid;place-items:center;font-weight:800;font-size:.9rem}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt.ok{background:var(--okbg);border-color:var(--ok)}.opt.ok .L{background:var(--ok);color:#fff}
+.opt.bad{background:var(--badbg);border-color:var(--bad)}.opt.bad .L{background:var(--bad);color:#fff}
+.opt.dim{opacity:.55}
+.fb{margin-top:20px;border-radius:12px;padding:16px 18px;border-left:5px solid}
+.fb.ok{background:var(--okbg);border-color:var(--ok)}.fb.bad{background:var(--badbg);border-color:var(--bad)}
+.fb.skip{background:var(--paper);border-color:var(--sub)}
+.fb h3{margin:0 0 6px;font-size:1.05rem}.fb p{margin:0;font-size:1rem;max-width:72ch}
+.acts{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hint{font-size:.8rem;color:var(--sub);margin-top:14px}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font:600 .78rem var(--ui)}
+.rs h2{font-size:1.5rem;margin:0 0 4px}.rs .big{font-size:1.15rem;color:var(--sub);margin:0 0 20px}
+.pr{display:grid;grid-template-columns:110px 1fr 56px;gap:12px;align-items:center;margin:8px 0;font-weight:600}
+.pr .tr{height:12px;background:var(--paper);border-radius:99px;overflow:hidden;border:1px solid var(--line)}.pr .tr i{display:block;height:100%}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:.93rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}th{color:var(--sub);font-weight:700}
+.st-ok{color:var(--ok);font-weight:700}.st-bad{color:var(--bad);font-weight:700}.st-sk{color:var(--sub);font-weight:700}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:10px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+@media(max-width:820px){.wrap{grid-template-columns:1fr}nav.map{position:static}.grp{display:inline-block;margin-right:14px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.top,nav.map,.acts,.hint{display:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1 id="ttl">Kuis Transition Words & Connectors<small id="sub"></small></h1>
+  <span class="stat">Terjawab <b id="sAns">0</b>/<b id="sTot">0</b></span>
+  <span class="stat">Benar <b id="sOk">0</b></span>
+  <button class="btn sm" id="bSnd" aria-pressed="true" title="Efek suara">Suara: nyala</button>
+  <button class="btn sm" id="bRes">Lihat hasil</button>
+</header>
+<div class="bar" role="progressbar" aria-label="Progres kuis"><i id="prog"></i></div>
+<div class="wrap">
+  <nav class="map" aria-label="Navigasi soal"><h2>Daftar soal</h2><div id="map"></div></nav>
+  <main id="main" aria-live="polite"><div class="card">Memuat soal…</div></main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script src="assets/audio.js"></script>
+<script>
+"use strict";
+const KEY="tw_quiz_v2";
+let D=null,cur=0,view="quiz",A={},snd=true;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const LET=["A","B","C","D"];
+const reEsc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+function save(){try{localStorage.setItem(KEY,JSON.stringify({A,cur}))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){A=s.A||{};cur=Math.min(s.cur||0,D.pg.length-1)}}catch(e){}}
+function sfx(t){if(!snd)return;try{AudioManager[t]()}catch(e){}}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2200)}
+const pres=q=>{const n=(q.presenter||"").replace(/\s*\(.*\)/,"");const p=D.settings.presenters.find(x=>x.name===n);return{name:n||"Tim",color:p?p.color:"#2b4acb"}};
+const status=q=>{const a=A[q.id];return !a?"none":a.revealed?"skip":(a.chosen===q.correct?"ok":"bad")};
+
+function passageHtml(q){
+  if(!q.q)return"";
+  let t=esc(q.q);const a=A[q.id];
+  const fill=a&&q.q.includes("___");
+  if(fill){const c=q.options[LET.indexOf(q.correct)];t=t.replace(/_{3,}/g,`<mark>${esc(c)}</mark>`)}
+  else t=t.replace(/_{3,}/g,'<span class="blank" aria-label="kosong"></span>');
+  (q.hl||[]).forEach(h=>{t=t.replace(new RegExp("("+reEsc(esc(h))+")","i"),"<mark>$1</mark>")});
+  return`<blockquote class="passage">${t}</blockquote>`;
+}
+function renderQuiz(){
+  const q=D.pg[cur],a=A[q.id],s=status(q),p=pres(q);
+  const opts=q.options.map((o,i)=>{
+    const L=LET[i];let c="opt";
+    if(a){if(L===q.correct)c+=" ok";else if(L===a.chosen)c+=" bad";else c+=" dim"}
+    return`<button class="${c}" data-l="${L}" ${a?"disabled":""}><span class="L">${L}</span><span>${esc(o)}</span></button>`}).join("");
+  let fb="";
+  if(a){
+    const h=s==="ok"?"Jawaban benar":s==="bad"?`Belum tepat. Jawaban yang benar: ${q.correct}`:`Kunci jawaban: ${q.correct}`;
+    fb=`<div class="fb ${s==="skip"?"skip":s}"><h3>${h}</h3><p>${esc(q.explanation)}</p></div>
+    <div class="acts"><button class="btn" id="bRetry">Coba lagi</button>
+    ${cur<D.pg.length-1?'<button class="btn pri" id="bNext">Soal berikutnya</button>':'<button class="btn pri" id="bFin">Lihat hasil</button>'}</div>`;
+  }else{
+    fb=`<div class="acts"><button class="btn" id="bPrev" ${cur?"":"disabled"}>Sebelumnya</button><button class="btn" id="bKey">Tampilkan kunci</button></div>`;
+  }
+  $("main").innerHTML=`<section class="card" aria-labelledby="qa">
+    <div class="meta"><span>Soal ${cur+1} dari ${D.pg.length}</span><span class="tag"><i style="background:${p.color}"></i>${esc(p.name)}</span><span class="tag">${esc(q.category)}</span></div>
+    ${passageHtml(q)}<p class="ask" id="qa">${esc(q.instruction)}</p>
+    <div class="opts" role="group" aria-label="Pilihan jawaban">${opts}</div>${fb}
+    <p class="hint"><kbd>A</kbd>–<kbd>D</kbd> pilih jawaban · <kbd>←</kbd> <kbd>→</kbd> pindah soal</p></section>`;
+  $("main").querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(b.dataset.l));
+  const on=(id,f)=>{const e=$(id);if(e)e.onclick=f};
+  on("bNext",()=>go(cur+1));on("bPrev",()=>go(cur-1));on("bFin",showResults);
+  on("bKey",()=>{A[q.id]={chosen:null,revealed:true};save();sfx("chime");refresh()});
+  on("bRetry",()=>{delete A[q.id];save();refresh()});
+}
+function renderResults(){
+  const n=D.pg.length,ok=D.pg.filter(q=>status(q)==="ok").length,done=D.pg.filter(q=>A[q.id]).length;
+  const bars=D.settings.presenters.map(p=>{
+    const qs=D.pg.filter(q=>pres(q).name===p.name);if(!qs.length)return"";
+    const k=qs.filter(q=>status(q)==="ok").length,pc=Math.round(k/qs.length*100);
+    return`<div class="pr"><span>${esc(p.name)}</span><div class="tr"><i style="width:${pc}%;background:${p.color}"></i></div><span>${k}/${qs.length}</span></div>`}).join("");
+  const rows=D.pg.map((q,i)=>{const s=status(q),a=A[q.id];
+    const lab={ok:'<span class="st-ok">Benar</span>',bad:'<span class="st-bad">Salah</span>',skip:'<span class="st-sk">Kunci dibuka</span>',none:'<span class="st-sk">Belum dijawab</span>'}[s];
+    return`<tr><td>${i+1}</td><td>${esc(q.category)}</td><td>${a&&a.chosen?a.chosen:"–"}</td><td>${q.correct}</td><td>${lab}</td></tr>`}).join("");
+  $("main").innerHTML=`<section class="card rs"><h2>Hasil kuis</h2>
+    <p class="big">${ok} benar dari ${n} soal${done<n?` · ${n-done} belum dijawab`:""}</p>
+    <h3>Per presenter</h3>${bars}
+    <table><thead><tr><th>No</th><th>Materi</th><th>Jawaban</th><th>Kunci</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="acts"><button class="btn" id="bBack">Kembali ke soal</button><span style="display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn" id="bCopy">Salin ringkasan</button><button class="btn" id="bPrint">Cetak</button><button class="btn pri" id="bReset">Mulai ulang</button></span></div></section>`;
+  $("bBack").onclick=()=>{view="quiz";refresh()};
+  $("bPrint").onclick=()=>window.print();
+  $("bCopy").onclick=()=>{
+    let t=`Rekap Kuis Transition Words & Connectors (${new Date().toLocaleDateString("id-ID")})\nBenar: ${ok}/${n}\n`;
+    D.pg.forEach((q,i)=>{t+=`Soal ${i+1} (${q.category}): ${{ok:"benar",bad:"salah",skip:"kunci dibuka",none:"belum dijawab"}[status(q)]}\n`});
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast("Ringkasan disalin"),()=>prompt("Salin ringkasan:",t));
+  };
+  $("bReset").onclick=()=>{if(confirm("Hapus semua jawaban dan mulai dari awal?")){A={};cur=0;view="quiz";save();refresh()}};
+}
+function renderMap(){
+  const groups={};D.pg.forEach((q,i)=>{(groups[pres(q).name]=groups[pres(q).name]||{c:pres(q).color,i:[]}).i.push(i)});
+  $("map").innerHTML=Object.entries(groups).map(([n,g])=>`<div class="grp"><div class="nm"><span class="dot" style="background:${g.c}"></span>${esc(n)}</div><div class="pills">${
+    g.i.map(i=>{const s=status(D.pg[i]);return`<button class="pill ${i===cur&&view==="quiz"?"cur":""} ${s==="none"?"":s}" data-i="${i}" aria-label="Soal ${i+1}${s==="ok"?", benar":s==="bad"?", salah":s==="skip"?", kunci dibuka":""}">${i+1}</button>`}).join("")}</div></div>`).join("");
+  $("map").querySelectorAll(".pill").forEach(b=>b.onclick=()=>{view="quiz";go(+b.dataset.i)});
+}
+function stats(){
+  const n=D.pg.length,done=D.pg.filter(q=>A[q.id]).length,ok=D.pg.filter(q=>status(q)==="ok").length;
+  $("sAns").textContent=done;$("sTot").textContent=n;$("sOk").textContent=ok;$("prog").style.width=(done/n*100)+"%";
+}
+function refresh(){view==="quiz"?renderQuiz():renderResults();renderMap();stats()}
+function go(i){if(i<0||i>=D.pg.length)return;cur=i;view="quiz";save();refresh();window.scrollTo({top:0})}
+function showResults(){view="results";refresh();window.scrollTo({top:0})}
+function answer(L){
+  const q=D.pg[cur];if(A[q.id]||view!=="quiz")return;
+  A[q.id]={chosen:L};save();sfx(L===q.correct?"correct":"wrong");refresh();
+}
+document.addEventListener("keydown",e=>{
+  if(!D||e.ctrlKey||e.metaKey||e.altKey||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+  const k=e.key.toUpperCase();
+  if(view==="quiz"){
+    const i=LET.indexOf(k)>=0?LET.indexOf(k):("1234".indexOf(k)>=0?+k-1:-1);
+    if(i>=0&&i<D.pg[cur].options.length)answer(LET[i]);
+    else if(e.key==="ArrowRight")go(cur+1);else if(e.key==="ArrowLeft")go(cur-1);
+  }
+});
+$("bRes").onclick=showResults;
+$("bSnd").onclick=()=>{snd=!snd;$("bSnd").textContent="Suara: "+(snd?"nyala":"mati");$("bSnd").setAttribute("aria-pressed",snd)};
+fetch("questions.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{
+  D=d;$("sub").textContent=(d.settings.presenters||[]).map(p=>p.name).join(", ");load();refresh();
+}).catch(err=>{
+  $("main").innerHTML=`<div class="card"><h2>Soal tidak dapat dimuat</h2><p>File <code>questions.json</code> gagal dibaca (${esc(err.message)}). Jika membuka file langsung dari folder, jalankan lewat server lokal (misalnya <code>python -m http.server</code>) atau buka dari GitHub Pages.</p></div>`;
+});
+</script>
+</body>
+</html>

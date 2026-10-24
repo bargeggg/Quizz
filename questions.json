@@ -1,0 +1,287 @@
+{
+  "settings": {
+    "title": "Transition Words & Connectors Interactive Quiz",
+    "course": "Bahasa Inggris - Semester 5",
+    "description": "Kuis interaktif 13 soal pilihan ganda dengan pembahasan dan rekap skor.",
+    "presenters": [
+      {
+        "slot": 1,
+        "name": "Elsa",
+        "topics": [
+          "Clarification",
+          "Addition",
+          "Definition",
+          "Example"
+        ],
+        "schema": "Overview > Penjelasan per-poin > Contoh kalimat",
+        "color": "#a855f7"
+      },
+      {
+        "slot": 2,
+        "name": "Sofia",
+        "topics": [
+          "Location",
+          "Time",
+          "Conclusion"
+        ],
+        "schema": "Overview > Penjelasan & Contoh kalimat",
+        "color": "#ec4899"
+      },
+      {
+        "slot": 3,
+        "name": "Irfan",
+        "topics": [
+          "Comparison",
+          "Contrast",
+          "Concession",
+          "Condition"
+        ],
+        "schema": "Overview > Sentence Examples",
+        "color": "#3b82f6"
+      },
+      {
+        "slot": 4,
+        "name": "Ahmad",
+        "topics": [
+          "Cause",
+          "Reason",
+          "Purpose",
+          "Result / Effect"
+        ],
+        "schema": "Overview > Explanation & Case Study Analysis",
+        "color": "#10b981"
+      }
+    ]
+  },
+  "essay": [],
+  "pg": [
+    {
+      "id": "pg1",
+      "presenter": "Elsa (#1)",
+      "category": "Clarification",
+      "q": "The city implemented a strict congestion pricing policy; specifically, it levied a daily fee on all non-electric vehicles entering the downtown core during peak hours.",
+      "instruction": "Bagaimana hubungan klausa kedua dengan klausa pertama pada kalimat di atas?",
+      "options": [
+        "Addition, karena memperkenalkan kebijakan baru yang sama sekali terpisah.",
+        "Definition, karena menjelaskan arti kamus dari kata congestion pricing.",
+        "Clarification, karena merumuskan kembali pernyataan umum dengan detail operasional yang presisi.",
+        "Example, karena mencantumkan contoh acak dari kendaraan listrik."
+      ],
+      "correct": "C",
+      "explanation": "Kata transisi 'specifically' berfungsi sebagai penanda Clarification (klarifikasi). Klausa pertama menyatakan kebijakan secara umum (strict congestion pricing policy), lalu klausa kedua memperjelas detail operasionalnya secara presisi (pengenaan tarif harian bagi kendaraan non-listrik pada jam sibuk).",
+      "hl": [
+        "specifically"
+      ]
+    },
+    {
+      "id": "pg2",
+      "presenter": "Elsa (#1)",
+      "category": "Addition",
+      "q": "Renewable energy sources significantly reduce carbon footprints. Furthermore, they foster long-term economic independence by insulating countries from volatile global fossil fuel markets.",
+      "instruction": "Hubungan logis apa yang ditandai oleh kata “Furthermore” pada teks di atas?",
+      "options": [
+        "Clarification, karena menjelaskan mekanisme fisik dari pengurangan karbon.",
+        "Addition, karena memperkenalkan keuntungan independen dan kumulatif lainnya dari energi terbarukan.",
+        "Definition, karena mendefinisikan arti dari kemandirian ekonomi.",
+        "Example, karena memberikan contoh jenis sumber energi terbarukan yang spesifik."
+      ],
+      "correct": "B",
+      "explanation": "Kata transisi 'Furthermore' adalah penanda hubungan Addition (penambahan). Kalimat pertama memaparkan manfaat lingkungan (pengurangan jejak karbon), kemudian kata 'Furthermore' menambahkan argumen/keuntungan kumulatif independen berikutnya, yaitu kemandirian ekonomi jangka panjang.",
+      "hl": [
+        "Furthermore"
+      ]
+    },
+    {
+      "id": "pg3",
+      "presenter": "Elsa (#1)",
+      "category": "Definition",
+      "q": "Neurolinguistics is an interdisciplinary field that investigates the neural mechanisms in the human brain that control the comprehension, production, and acquisition of language.",
+      "instruction": "Hubungan ide apa yang paling mendominasi kalimat di atas?",
+      "options": [
+        "Definition, karena secara eksplisit menguraikan arti dan ruang lingkup dasar dari istilah neurolinguistics.",
+        "Addition, karena menambahkan detail kumulatif tentang fungsi otak manusia.",
+        "Example, karena mencontohkan salah satu cabang dari ilmu psikologi modern.",
+        "Clarification, karena memperbaiki kesalahpahaman linguistik yang terjadi sebelumnya."
+      ],
+      "correct": "A",
+      "explanation": "Kalimat ini mengikuti rumus formal Definition: [Term/Istilah] + [is/are] + [General Class] + [Specific Characteristics]. Kalimat secara eksplisit mendefinisikan apa itu neurolinguistics dan batasan ruang lingkup keilmuannya.",
+      "hl": [
+        "is an interdisciplinary field"
+      ]
+    },
+    {
+      "id": "pg4",
+      "presenter": "Sofia (#2)",
+      "category": "Location",
+      "q": "The hospital is within walking distance of the bus station, while the airport is far from the city center.",
+      "instruction": "What is the difference between the meanings of “within” and “far” in the sentence above?",
+      "options": [
+        "Within menunjukkan tempat yang bersebelahan, sedangkan far menunjukkan tempat di dalam batas tertentu.",
+        "Within menunjukkan jarak yang masih dapat dijangkau dengan berjalan kaki, sedangkan far menunjukkan jarak yang jauh.",
+        "Within menunjukkan arah pergerakan, sedangkan far menunjukkan posisi yang berlawanan.",
+        "Within menunjukkan kesimpulan lokasi, sedangkan far menunjukkan urutan tempat."
+      ],
+      "correct": "B",
+      "explanation": "Kedua kata adalah transisi spasial/lokasi (Location). Frasa 'within walking distance' menunjukkan jarak dekat yang masih dapat ditempuh dengan berjalan kaki, sedangkan 'far from' menunjukkan jarak spasial yang berjauhan dari pusat kota.",
+      "hl": [
+        "within",
+        "far from"
+      ]
+    },
+    {
+      "id": "pg5",
+      "presenter": "Sofia (#2)",
+      "category": "Time",
+      "q": "Call me as soon as you arrive at the airport.",
+      "instruction": "The phrase “as soon as” belongs to which category of time transitions?",
+      "options": [
+        "Before",
+        "Simultaneous",
+        "After",
+        "Immediate succession"
+      ],
+      "correct": "D",
+      "explanation": "Frasa transisi waktu 'as soon as' (segera setelah) termasuk kategori Immediate Succession (suksesi langsung seketika). Artinya tindakan menelepon harus langsung dilakukan segera saat momen tiba di bandara terjadi tanpa penundaan waktu.",
+      "hl": [
+        "as soon as"
+      ]
+    },
+    {
+      "id": "pg6",
+      "presenter": "Sofia (#2)",
+      "category": "Conclusion",
+      "q": "The road was flooded. _____, the school decided to cancel classes.",
+      "instruction": "Which transition word best completes the sentence?",
+      "options": [
+        "In summary",
+        "Meanwhile",
+        "Therefore",
+        "Afterwards"
+      ],
+      "correct": "C",
+      "explanation": "'Therefore' (oleh karena itu) adalah konektor yang tepat untuk menarik kesimpulan logis atau konsekuensi akhir (Conclusion/Result) dari premis sebelumnya (jalan banjir sehingga kelas dibatalkan). Meanwhile untuk waktu bersamaan, Afterwards untuk urutan waktu, dan In summary untuk merangkum teks panjang.",
+      "hl": []
+    },
+    {
+      "id": "pg7",
+      "presenter": "Irfan (#3)",
+      "category": "Comparison",
+      "q": "",
+      "instruction": "Kalimat mana yang punya hubungan “comparison”?",
+      "options": [
+        "The red car is fast, but the blue car is quite slow",
+        "If you drive the car too fast, you will get a fine",
+        "Both the red car and the blue car are incredibly fast",
+        "Even though the car is old, it is still very fast"
+      ],
+      "correct": "C",
+      "explanation": "Hubungan Comparison menyoroti kesamaan atau kesetaraan karakteristik antara dua subjek. Struktur korelatif 'Both ... and ...' pada opsi C membandingkan kedua mobil yang sama-sama cepat. Opsi A adalah Contrast (perbedaan), B adalah Condition (syarat), dan D adalah Concession (pertentangan).",
+      "hl": []
+    },
+    {
+      "id": "pg8",
+      "presenter": "Irfan (#3)",
+      "category": "Concession",
+      "q": "_______ studying all night, he still failed the math test.",
+      "instruction": "Which transition word best completes the sentence?",
+      "options": [
+        "Despite",
+        "Similarly",
+        "As long as",
+        "However"
+      ],
+      "correct": "A",
+      "explanation": "Hubungan Concession (konsesi) menyatakan hasil yang tak terduga/berlawanan dari suatu usaha keras. Karena diikuti bentuk gerund/noun phrase ('studying all night'), kata yang tepat secara tata bahasa adalah preposisi 'Despite' (Despite + Noun/Gerund).",
+      "hl": []
+    },
+    {
+      "id": "pg9",
+      "presenter": "Irfan (#3)",
+      "category": "Condition",
+      "q": "You can play video games as long as you finish your homework first.",
+      "instruction": "Termasuk kalimat jenis apakah pernyataan di atas?",
+      "options": [
+        "Concession",
+        "Comparison",
+        "Contrast",
+        "Condition"
+      ],
+      "correct": "D",
+      "explanation": "Frasa penghubung 'as long as' memiliki makna 'asalkan / dengan syarat bahwa'. Ini adalah penanda hubungan Condition (persyaratan), di mana izin bermain game hanya terwujud apabila syarat menyelesaikan PR terpenuhi terlebih dahulu.",
+      "hl": [
+        "as long as"
+      ]
+    },
+    {
+      "id": "pg10",
+      "presenter": "Ahmad (#4)",
+      "category": "Cause",
+      "q": "The flight was delayed due to thick fog.",
+      "instruction": "Look at the keyword “due to”: What does “thick fog” represent?",
+      "options": [
+        "Purpose",
+        "Result/Effect",
+        "Reason",
+        "Cause"
+      ],
+      "correct": "D",
+      "explanation": "Frasa 'due to' (disebabkan oleh) memperkenalkan akar penyebab fisik atau alamiah (Cause). Di sini, 'thick fog' (kabut tebal) adalah peristiwa alam yang menjadi penyebab (Cause), sedangkan penundaan penerbangan adalah hasil atau dampaknya (Result/Effect).",
+      "hl": [
+        "due to"
+      ]
+    },
+    {
+      "id": "pg11",
+      "presenter": "Ahmad (#4)",
+      "category": "Reason",
+      "q": "A citizen says, “My reason for asking for transparency in the MBG budget is that people should know how public money is used.”",
+      "instruction": "What is the reason for the citizen's request?",
+      "options": [
+        "The citizen asks for budget transparency",
+        "The citizen wants public spending to be open to public scrutiny",
+        "People knowing how public money is used",
+        "The MBG program uses public money"
+      ],
+      "correct": "B",
+      "explanation": "Hubungan Reason menjelaskan motivasi rasional atau pertimbangan logis di balik tindakan manusia. Alasan warga meminta transparansi anggaran adalah keinginannya agar penggunaan anggaran publik dapat dipantau dan dipertanggungjawabkan secara terbuka (open to public scrutiny).",
+      "hl": [
+        "My reason for"
+      ]
+    },
+    {
+      "id": "pg12",
+      "presenter": "Ahmad (#4)",
+      "category": "Purpose",
+      "q": "Maya exercises every morning to stay healthy.",
+      "instruction": "Look at the keyword “to”: What does “to stay healthy” express?",
+      "options": [
+        "Reason",
+        "Purpose",
+        "Cause",
+        "Result/Effect"
+      ],
+      "correct": "B",
+      "explanation": "Struktur 'to + verb' (infinitive of purpose) digunakan untuk mengekspresikan Purpose (tujuan atau cita-cita yang ingin dicapai di masa mendatang). Berolahraga setiap pagi adalah tindakannya, dan menjaga kesehatan adalah tujuan (Purpose) yang ingin diraih.",
+      "hl": [
+        "to stay healthy"
+      ]
+    },
+    {
+      "id": "pg13",
+      "presenter": "Ahmad (#4)",
+      "category": "Cause",
+      "q": "The IHSG is falling, investors are starting to panic, and many people are worried that the value of their investments will decrease.",
+      "instruction": "In this cause and effect situation, what does the decline in the IHSG represent?",
+      "options": [
+        "Purpose, because the decline in the IHSG is the goal of investors when they invest in the stock market.",
+        "Reason, because the decline in the IHSG explains why investors start buying stocks.",
+        "Cause, because the decline in the IHSG causes investors to become worried.",
+        "Result/Effect, because the decline in the IHSG is the outcome of investors' concerns about the economic situation."
+      ],
+      "correct": "C",
+      "explanation": "Dalam rantai kausalitas (sebab-akibat), penurunan IHSG (decline in the IHSG) adalah pemicu atau penyebab (Cause) awal yang membangkitkan kepanikan dan rasa khawatir para investor (sebagai Result/Effect).",
+      "hl": []
+    }
+  ],
+  "tanya_bebas": []
+}

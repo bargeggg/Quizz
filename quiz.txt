@@ -1,0 +1,147 @@
+===========================
+Quiz
+Quiz #1 (Essay)         = - (Dihilangkan)
+Quiz #2 (Pilihan Ganda) = 13 Soal
+Penanya (Tanya Bebas)   = - (Dihilangkan)
+Note:
+Sesi kuis berfokus penuh pada 13 soal pilihan ganda interaktif, pembahasan lengkap (benar/salah), & Class Scoreboard
+===========================
+Link file persentasi:
+https://canva.link/otop855dny25lu6
+Skema Slide:
+Elsa  : #1 = Overview > Penjelasan per-poin > contoh kalimat
+Sofia : #2 = Overview > Penjelasan & contoh kalimat
+Irfan : #3 = Overview > contoh kalimat
+Ahmad : #4 = Overview > Penjelasan & studi kasus
+Deadline: 22 Oktober 2026
+Sesi latihan persentasi: 23-24 Oktober 2026
+===========================
+Pembahasan
+Elsa  : #1 - Addition, Clarification, Definition, and Example
+Sofia : #2 - Location, Time, and Conclusion
+Irfan : #3 - Comparison, Contrast, Concession, and Condition
+Ahmad : #4 - Cause, Reason, Purpose, Result/Effect
+===========================
+Bank Soal Pilihan Ganda (13 Soal Beserta Kunci & Penjelasan Lengkap):
+
+SOAL 1
+“The city implemented a strict congestion pricing policy; specifically, it levied a daily fee on all non-electric vehicles entering the downtown core during peak hours.”
+Bagaimana hubungan klausa kedua dengan klausa pertama pada kalimat di atas?
+A) Addition, karena memperkenalkan kebijakan baru yang sama sekali terpisah.
+B) Definition, karena menjelaskan arti kamus dari kata congestion pricing.
+C) Clarification, karena merumuskan kembali pernyataan umum dengan detail operasional yang presisi.
+D) Example, karena mencantumkan contoh acak dari kendaraan listrik.
+Kunci Jawaban: C
+Penjelasan: Kata transisi 'specifically' berfungsi sebagai penanda Clarification (klarifikasi). Klausa pertama menyatakan kebijakan secara umum (strict congestion pricing policy), lalu klausa kedua memperjelas detail operasionalnya secara presisi (pengenaan tarif harian bagi kendaraan non-listrik pada jam sibuk).
+
+SOAL 2
+“Renewable energy sources significantly reduce carbon footprints. Furthermore, they foster long-term economic independence by insulating countries from volatile global fossil fuel markets.”
+Hubungan logis apa yang ditandai oleh kata “Furthermore” pada teks di atas?
+A) Clarification, karena menjelaskan mekanisme fisik dari pengurangan karbon.
+B) Addition, karena memperkenalkan keuntungan independen dan kumulatif lainnya dari energi terbarukan.
+C) Definition, karena mendefinisikan arti dari kemandirian ekonomi.
+D) Example, karena memberikan contoh jenis sumber energi terbarukan yang spesifik.
+Kunci Jawaban: B
+Penjelasan: Kata transisi 'Furthermore' adalah penanda hubungan Addition (penambahan). Kalimat pertama memaparkan manfaat lingkungan (pengurangan jejak karbon), kemudian kata 'Furthermore' menambahkan argumen/keuntungan kumulatif independen berikutnya, yaitu kemandirian ekonomi jangka panjang.
+
+SOAL 3
+“Neurolinguistics is an interdisciplinary field that investigates the neural mechanisms in the human brain that control the comprehension, production, and acquisition of language.”
+Hubungan ide apa yang paling mendominasi kalimat di atas?
+A) Definition, karena secara eksplisit menguraikan arti dan ruang lingkup dasar dari istilah neurolinguistics.
+B) Addition, karena menambahkan detail kumulatif tentang fungsi otak manusia.
+C) Example, karena mencontohkan salah satu cabang dari ilmu psikologi modern.
+D) Clarification, karena memperbaiki kesalahpahaman linguistik yang terjadi sebelumnya.
+Kunci Jawaban: A
+Penjelasan: Kalimat ini mengikuti rumus formal Definition: [Term/Istilah] + [is/are] + [General Class] + [Specific Characteristics]. Kalimat secara eksplisit mendefinisikan apa itu neurolinguistics dan batasan ruang lingkup keilmuannya.
+
+SOAL 4
+“The hospital is within walking distance of the bus station, while the airport is far from the city center.” What is the difference between the meanings of “within” and “far” in the sentence above?
+A. Within menunjukkan tempat yang bersebelahan, sedangkan far menunjukkan tempat di dalam batas tertentu.
+B. Within menunjukkan jarak yang masih dapat dijangkau dengan berjalan kaki, sedangkan far menunjukkan jarak yang jauh.
+C. Within menunjukkan arah pergerakan, sedangkan far menunjukkan posisi yang berlawanan.
+D. Within menunjukkan kesimpulan lokasi, sedangkan far menunjukkan urutan tempat.
+Kunci Jawaban: B
+Penjelasan: Kedua kata adalah transisi spasial/lokasi (Location). Frasa 'within walking distance' menunjukkan jarak dekat yang masih dapat ditempuh dengan berjalan kaki, sedangkan 'far from' menunjukkan jarak spasial yang berjauhan dari pusat kota.
+
+SOAL 5
+“Call me as soon as you arrive at the airport.” The phrase “as soon as” belongs to which category of time transitions?
+A. Before
+B. Simultaneous
+C. After
+D. Immediate succession
+Kunci Jawaban: D
+Penjelasan: Frasa transisi waktu 'as soon as' (segera setelah) termasuk kategori Immediate Succession (suksesi langsung seketika). Artinya tindakan menelepon harus langsung dilakukan segera saat momen tiba di bandara terjadi tanpa penundaan waktu.
+
+SOAL 6
+“The road was flooded. _____, the school decided to cancel classes.” Which transition word best completes the sentence?
+A. In summary
+B. Meanwhile
+C. Therefore
+D. Afterwards
+Kunci Jawaban: C
+Penjelasan: 'Therefore' (oleh karena itu) adalah konektor yang tepat untuk menarik kesimpulan logis atau konsekuensi akhir (Conclusion/Result) dari premis sebelumnya (jalan banjir sehingga kelas dibatalkan). Meanwhile untuk waktu bersamaan, Afterwards untuk urutan waktu, dan In summary untuk merangkum teks panjang.
+
+SOAL 7
+Kalimat mana yang punya hubungan "comparison"?
+A. The red car is fast, but the blue car is quite slow
+B. If you drive the car too fast, you will get a fine
+C. Both the red car and the blue car are incredibly fast
+D. Even though the car is old, it is still very fast
+Kunci Jawaban: C
+Penjelasan: Hubungan Comparison menyoroti kesamaan atau kesetaraan karakteristik antara dua subjek. Struktur korelatif 'Both ... and ...' pada opsi C membandingkan kedua mobil yang sama-sama cepat. Opsi A adalah Contrast (perbedaan), B adalah Condition (syarat), dan D adalah Concession (pertentangan).
+
+SOAL 8
+_______ studying all night, he still failed the math test.
+A. Despite
+B. Similarly
+C. As long as
+D. However
+Kunci Jawaban: A
+Penjelasan: Hubungan Concession (konsesi) menyatakan hasil yang tak terduga/berlawanan dari suatu usaha keras. Karena diikuti bentuk gerund/noun phrase ('studying all night'), kata yang tepat secara tata bahasa adalah preposisi 'Despite' (Despite + Noun/Gerund).
+
+SOAL 9
+"You can play video games as long as you finish your homework first." termasuk kalimat?
+A. Concession
+B. Comparison
+C. Contrast
+D. Condition
+Kunci Jawaban: D
+Penjelasan: Frasa penghubung 'as long as' memiliki makna 'asalkan / dengan syarat bahwa'. Ini adalah penanda hubungan Condition (persyaratan), di mana izin bermain game hanya terwujud apabila syarat menyelesaikan PR terpenuhi terlebih dahulu.
+
+SOAL 10
+“The flight was delayed due to thick fog.”
+Look at the keyword “due to”: What does “thick fog” represent?
+A. Purpose
+B. Result/Effect
+C. Reason
+D. Cause
+Kunci Jawaban: D
+Penjelasan: Frasa 'due to' (disebabkan oleh) memperkenalkan akar penyebab fisik atau alamiah (Cause). Di sini, 'thick fog' (kabut tebal) adalah peristiwa alam yang menjadi penyebab (Cause), sedangkan penundaan penerbangan adalah hasil atau dampaknya (Result/Effect).
+
+SOAL 11
+A citizen says, “My reason for asking for transparency in the MBG budget is that people should know how public money is used.” What is the reason for the citizen's request?
+A. The citizen asks for budget transparency
+B. The citizen wants public spending to be open to public scrutiny
+C. People knowing how public money is used
+D. The MBG program uses public money
+Kunci Jawaban: B
+Penjelasan: Hubungan Reason menjelaskan motivasi rasional atau pertimbangan logis di balik tindakan manusia. Alasan warga meminta transparansi anggaran adalah keinginannya agar penggunaan anggaran publik dapat dipantau dan dipertanggungjawabkan secara terbuka (open to public scrutiny).
+
+SOAL 12
+“Maya exercises every morning to stay healthy.”
+Look at the keyword “to”: What does “to stay healthy” express?
+A. Reason
+B. Purpose
+C. Cause
+D. Result/Effect
+Kunci Jawaban: B
+Penjelasan: Struktur 'to + verb' (infinitive of purpose) digunakan untuk mengekspresikan Purpose (tujuan atau cita-cita yang ingin dicapai di masa mendatang). Berolahraga setiap pagi adalah tindakannya, dan menjaga kesehatan adalah tujuan (Purpose) yang ingin diraih.
+
+SOAL 13
+The IHSG is falling, investors are starting to panic, and many people are worried that the value of their investments will decrease. In this cause and effect situation, what does the decline in the IHSG represent?
+A. Purpose, because the decline in the IHSG is the goal of investors when they invest in the stock market.
+B. Reason, because the decline in the IHSG explains why investors start buying stocks.
+C. Cause, because the decline in the IHSG causes investors to become worried.
+D. Result/Effect, because the decline in the IHSG is the outcome of investors' concerns about the economic situation.
+Kunci Jawaban: C
+Penjelasan: Dalam rantai kausalitas (sebab-akibat), penurunan IHSG (decline in the IHSG) adalah pemicu atau penyebab (Cause) awal yang membangkitkan kepanikan dan rasa khawatir para investor (sebagai Result/Effect).
